@@ -2,17 +2,28 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    webcam.setup(640, 480);
+    gray.allocate(webcam.getWidth(), webcam.getHeight());
+    color.allocate(webcam.getWidth(), webcam.getHeight());
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    webcam.update();
+    
+    if(webcam.isFrameNew()) {
+        color.setFromPixels(webcam.getPixels());
+        gray = color;
+        myFiducialTracker.findFiducials(gray);
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    color.draw(0, 0);
+    gray.draw(480, 0);
+    //cout << "aaa " << myFiducialTracker._fiducials.size() << endl;
 }
 
 //--------------------------------------------------------------

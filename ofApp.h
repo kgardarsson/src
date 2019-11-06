@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxFidMain.h"
+#include "ofxOpenCv.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,4 +23,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+    ofVideoGrabber webcam;
+    ofxFiducialFinder myFiducialFinder;
+    ofxFiducialTracker myFiducialTracker;
+    ofxCvColorImage color;
+    ofxCvGrayscaleImage gray;
 };
