@@ -22,10 +22,6 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
-    ofVideoGrabber webcam;
-    ofxFiducialFinder myFiducialFinder;
-    ofxFiducialTracker myFiducialTracker;
-    ofxCvColorImage color;
-    ofxCvGrayscaleImage gray;
+    
+        ofSoundPlayer audioLoops[10];
 };
