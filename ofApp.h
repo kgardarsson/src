@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxFidMain.h"
 #include "ofxOpenCv.h"
 
 class ofApp : public ofBaseApp{
