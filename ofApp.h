@@ -1,8 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxFidMain.h"
 #include "ofxOpenCv.h"
+#include "ofxAruco.h"
+#include "ofxPS3EyeGrabber.h"
 
 class ofApp : public ofBaseApp{
 
@@ -24,4 +25,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
         ofSoundPlayer audioLoops[10];
+    //need to change to ps3 camera
+    ofVideoGrabber camera;
+   
 };

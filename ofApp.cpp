@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    camera.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
+    camera.setup(ofGetWidth(), ofGetHeight());
     audioLoops[0].load("Audio/Colors_11.wav");
     audioLoops[1].load("Audio/Colors_12.wav");
     audioLoops[2].load("Audio/Colors_13.wav");
@@ -19,15 +21,21 @@ void ofApp::setup(){
         audioLoops[i].play();
         audioLoops[i].setLoop(true);
     }
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    camera.update();
 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    camera.draw(0, 0, ofGetWidth(),ofGetHeight());
+    
     for (int i=0; i<5; i++) {
         ofDrawLine(ofGetWidth()/5*i, 0, ofGetWidth()/5*i, ofGetHeight());
     }
