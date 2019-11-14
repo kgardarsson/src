@@ -1,8 +1,37 @@
 #include "ofApp.h"
 
+void drawMarker(float size, const ofColor & color){
+    ofDrawAxis(size);
+    ofPushMatrix();
+        // move up from the center by size*.5
+        // to draw a box centered at that point
+        ofTranslate(0,size*0.5,0);
+        ofFill();
+        ofSetColor(color,50);
+        ofDrawBox(size);
+        ofNoFill();
+        ofSetColor(color);
+        ofDrawBox(size);
+    ofPopMatrix();
+}
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    string boardName = "boardConfiguration.yml";
+    
+    grabber.setDeviceID(1);
+    grabber.initGrabber(ofGetWidth(), ofGetHeight());
+    video = &grabber;
+    
+    aruco.setup("intrinsics.int", video->getWidth(), video->getHeight(), boardName);
+    aruco.getBoardImage(board.getPixels());
+    board.update();
+
+    showMarkers = true;
+
+    ofEnableAlphaBlending();
+
     audioLoops[0].load("Audio/Colors_11.wav");
     audioLoops[1].load("Audio/Colors_12.wav");
     audioLoops[2].load("Audio/Colors_13.wav");
@@ -23,11 +52,49 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    video->update();
+    if(video->isFrameNew()){
+        aruco.detectBoards(video->getPixels());
+    }
+}
 
+void ofApp::playAudioWithMarker(int marker) {
+    int horizontalSpaces = 5;
+    int verticalSpaces = 2;
+    int i=0;
+    for (int j=horizontalSpaces; j>0; j--) {
+        for (int k=verticalSpaces; k>0; k--) {
+            if (aruco.getNumMarkers() == 0) {
+                audioLoops[i].setVolume(0);
+            } else if (    aruco.getMarkers().at(marker).getCenter().x > ofGetWidth() -ofGetWidth()/horizontalSpaces*j
+                    && aruco.getMarkers().at(marker).getCenter().x < ofGetWidth() -ofGetWidth()/horizontalSpaces*(j-1)
+                    && aruco.getMarkers().at(marker).getCenter().y > ofGetHeight() -ofGetHeight()/verticalSpaces*k
+                    && aruco.getMarkers().at(marker).getCenter().y < ofGetHeight() -ofGetHeight()/verticalSpaces*(k-1)  ) {
+                audioLoops[i].setVolume(0.6);
+            } else {
+                audioLoops[i].setVolume(0);
+            }
+            i++;
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofSetColor(255);
+    video->draw(0, 0);
+
+    //aruco.draw();
+
+    if (showMarkers) {
+        for (int i = 0; i<aruco.getNumMarkers(); i++) {
+            aruco.begin(i);
+            cout << aruco.getMarkers().at(i).id << endl;
+            drawMarker(0.15, ofColor::white);
+            aruco.end();
+            ofApp::playAudioWithMarker(i);
+        }
+    }
     for (int i=0; i<5; i++) {
         ofDrawLine(ofGetWidth()/5*i, 0, ofGetWidth()/5*i, ofGetHeight());
     }
@@ -48,22 +115,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-    int horizontalSpaces = 5;
-    int verticalSpaces = 2;
-    int i=0;
-    for (int j=horizontalSpaces; j>0; j--) {
-        for (int k=verticalSpaces; k>0; k--) {
-            if (    ofGetMouseX() > ofGetWidth() -ofGetWidth()/horizontalSpaces*j
-                    && ofGetMouseX() < ofGetWidth() -ofGetWidth()/horizontalSpaces*(j-1)
-                    && ofGetMouseY() > ofGetHeight() -ofGetHeight()/verticalSpaces*k
-                    && ofGetMouseY() < ofGetHeight() -ofGetHeight()/verticalSpaces*(k-1)  ) {
-                audioLoops[i].setVolume(0.6);
-            } else {
-                audioLoops[i].setVolume(0);
-            }
-            i++;
-        }
-    }
+
 }
 
 //--------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
+#include "ofxAruco.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,6 +22,20 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-
+    void playAudioWithMarker(int marker);
+    
     ofSoundPlayer audioLoops[10];
+
+    ofVideoGrabber grabber;
+    ofVideoPlayer player;
+
+    ofBaseVideoDraws * video;
+
+    ofxAruco aruco;
+    bool useVideo;
+    bool showMarkers;
+    bool showBoard;
+    bool showBoardImage;
+    ofImage board;
+    ofImage marker;
 };
