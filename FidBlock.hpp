@@ -13,11 +13,16 @@
 
 class FidBlock {
 public:
-    FidBlock()
-    FidBlock(std::String audioFile)
+    FidBlock();
+    FidBlock(string audioFile, int id);
     
     void setup();
     void draw();
+    
+    void playAudio();
+    void stopAudio();
+    
+    int id;
     
     aruco::Marker marker;
     

@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxAruco.h"
+#include "FidBlock.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -38,4 +39,7 @@ public:
     bool showBoardImage;
     ofImage board;
     ofImage marker;
+    
+    FidBlock myFidBlocks[10];
+    
 };

@@ -48,6 +48,16 @@ void ofApp::setup(){
         audioLoops[i].play();
         audioLoops[i].setLoop(true);
     }
+    
+    myFidBlocks[0] = FidBlock("Audio/Stations/Rhythmic/Claps.wav", 233);
+    myFidBlocks[1] = FidBlock("Audio/Stations/Rhythmic/Cymbals.wav", 286);
+    myFidBlocks[2] = FidBlock("Audio/Stations/Rhythmic/Kick.wav", 538);
+    myFidBlocks[3] = FidBlock("Audio/Stations/Rhythmic/Percussion.wav", 581);
+    myFidBlocks[4] = FidBlock("Audio/Stations/Rhythmic/Snare.wav", 948);
+    myFidBlocks[5] = FidBlock("Audio/Stations/Vocals/BeckColors.wav", 132);
+    myFidBlocks[6] = FidBlock("Audio/Stations/Vocals/EWFSeptember.wav", 868);
+    myFidBlocks[7] = FidBlock("Audio/Stations/Vocals/JourneyDontStop.wav", 12);
+    myFidBlocks[8] = FidBlock("Audio/Stations/Vocals/Vitas7thElement.wav", 691);
 }
 
 //--------------------------------------------------------------
@@ -87,12 +97,19 @@ void ofApp::draw(){
     //aruco.draw();
 
     if (showMarkers) {
+        for (int i=0; i<9; i++) {
+            myFidBlocks[i].stopAudio();
+        }
         for (int i = 0; i<aruco.getNumMarkers(); i++) {
             aruco.begin(i);
-            cout << aruco.getMarkers().at(i).id << endl;
+            for (int j=0; j<9; j++) {
+                if (aruco.getMarkers().at(i).id == myFidBlocks[j].id) {
+                    myFidBlocks[j].playAudio();
+                }
+            }
             drawMarker(0.15, ofColor::white);
             aruco.end();
-            ofApp::playAudioWithMarker(i);
+            //ofApp::playAudioWithMarker(i);
         }
     }
     for (int i=0; i<5; i++) {
