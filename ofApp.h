@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxAruco.h"
+#include "ofxPS3EyeGrabber.h"
 #include "FidBlock.hpp"
 
 class ofApp : public ofBaseApp{
@@ -28,6 +29,7 @@ public:
     ofSoundPlayer audioLoops[10];
 
     ofVideoGrabber grabber;
+    ofVideoGrabber thresholdImage;
     ofVideoPlayer player;
 
     ofBaseVideoDraws * video;

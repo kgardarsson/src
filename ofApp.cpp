@@ -19,8 +19,9 @@ void drawMarker(float size, const ofColor & color){
 void ofApp::setup(){
     
     string boardName = "boardConfiguration.yml";
+    grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     
-    grabber.setDeviceID(1);
+    grabber.setDeviceID(0);
     grabber.initGrabber(ofGetWidth(), ofGetHeight());
     video = &grabber;
     
