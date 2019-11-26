@@ -21,7 +21,7 @@ void ofApp::setup(){
     string boardName = "boardConfiguration.yml";
     grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     
-    grabber.setDeviceID(0);
+    //grabber.setDeviceID(1);
     grabber.initGrabber(ofGetWidth(), ofGetHeight());
     video = &grabber;
     
