@@ -17,17 +17,24 @@ void drawMarker(float size, const ofColor & color){
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetVerticalSync(true);
+    string cameraIntrinsics = "intrinsics.yml";
+    //grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     
-    string boardName = "boardConfiguration.yml";
-    grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
-    
-    //grabber.setDeviceID(1);
+    grabber.setDeviceID(1);
     grabber.initGrabber(ofGetWidth(), ofGetHeight());
     video = &grabber;
     
-    aruco.setup("intrinsics.int", video->getWidth(), video->getHeight(), boardName);
-    aruco.getBoardImage(board.getPixels());
-    board.update();
+    string markerFile3 = "marker3.xml";
+    aruco.setUseHighlyReliableMarker(markerFile3);
+    
+    //string markerFile4 = "marker4.xml";
+    //aruco.setUseHighlyReliableMarker(markerFile4);
+
+    //string markerFile5 = "marker5.xml";
+    //aruco.setUseHighlyReliableMarker(markerFile5);
+
+    aruco.setupXML(cameraIntrinsics, video->getWidth(), video->getHeight());
 
     showMarkers = true;
 
@@ -50,15 +57,15 @@ void ofApp::setup(){
         audioLoops[i].setLoop(true);
     }
     
-    myFidBlocks[0] = FidBlock("Audio/Stations/Rhythmic/Claps.wav", 233);
-    myFidBlocks[1] = FidBlock("Audio/Stations/Rhythmic/Cymbals.wav", 286);
-    myFidBlocks[2] = FidBlock("Audio/Stations/Rhythmic/Kick.wav", 538);
-    myFidBlocks[3] = FidBlock("Audio/Stations/Rhythmic/Percussion.wav", 581);
-    myFidBlocks[4] = FidBlock("Audio/Stations/Rhythmic/Snare.wav", 948);
-    myFidBlocks[5] = FidBlock("Audio/Stations/Vocals/BeckColors.wav", 132);
-    myFidBlocks[6] = FidBlock("Audio/Stations/Vocals/EWFSeptember.wav", 868);
-    myFidBlocks[7] = FidBlock("Audio/Stations/Vocals/JourneyDontStop.wav", 12);
-    myFidBlocks[8] = FidBlock("Audio/Stations/Vocals/Vitas7thElement.wav", 691);
+    myFidBlocks[0] = FidBlock("Audio/Stations/Rhythmic/Claps.wav", 8);
+    myFidBlocks[1] = FidBlock("Audio/Stations/Rhythmic/Cymbals.wav", 7);
+    myFidBlocks[2] = FidBlock("Audio/Stations/Rhythmic/Kick.wav", 6);
+    myFidBlocks[3] = FidBlock("Audio/Stations/Rhythmic/Percussion.wav", 5);
+    myFidBlocks[4] = FidBlock("Audio/Stations/Rhythmic/Snare.wav", 4);
+    myFidBlocks[5] = FidBlock("Audio/Stations/Vocals/BeckColors.wav", 3);
+    myFidBlocks[6] = FidBlock("Audio/Stations/Vocals/EWFSeptember.wav", 2);
+    myFidBlocks[7] = FidBlock("Audio/Stations/Vocals/JourneyDontStop.wav", 1);
+    myFidBlocks[8] = FidBlock("Audio/Stations/Vocals/Vitas7thElement.wav", 0);
 }
 
 //--------------------------------------------------------------
@@ -108,6 +115,7 @@ void ofApp::draw(){
                     myFidBlocks[j].playAudio();
                 }
             }
+            cout << "id is: " << aruco.getMarkers().at(i).id << endl;
             drawMarker(0.15, ofColor::white);
             aruco.end();
             //ofApp::playAudioWithMarker(i);
