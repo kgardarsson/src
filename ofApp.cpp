@@ -19,9 +19,9 @@ void drawMarker(float size, const ofColor & color){
 void ofApp::setup(){
     ofSetVerticalSync(true);
     string cameraIntrinsics = "intrinsics.yml";
-    //grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
+    grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     
-    grabber.setDeviceID(1);
+   // grabber.setDeviceID(1);
     grabber.initGrabber(ofGetWidth(), ofGetHeight());
     video = &grabber;
     
@@ -40,7 +40,7 @@ void ofApp::setup(){
 
     ofEnableAlphaBlending();
 
-    audioLoops[0].load("Audio/Colors_11.wav");
+    /*audioLoops[0].load("Audio/Colors_11.wav");
     audioLoops[1].load("Audio/Colors_12.wav");
     audioLoops[2].load("Audio/Colors_13.wav");
     audioLoops[3].load("Audio/Colors_14.wav");
@@ -55,7 +55,7 @@ void ofApp::setup(){
         audioLoops[i].setVolume(0);
         audioLoops[i].play();
         audioLoops[i].setLoop(true);
-    }
+    }*/
     
     myFidBlocks[0] = FidBlock("Audio/Stations/Rhythmic/Claps.wav", 8);
     myFidBlocks[1] = FidBlock("Audio/Stations/Rhythmic/Cymbals.wav", 7);
@@ -76,7 +76,7 @@ void ofApp::update(){
     }
 }
 
-void ofApp::playAudioWithMarker(int marker) {
+/*void ofApp::playAudioWithMarker(int marker) {
     int horizontalSpaces = 5;
     int verticalSpaces = 2;
     int i=0;
@@ -95,13 +95,12 @@ void ofApp::playAudioWithMarker(int marker) {
             i++;
         }
     }
-}
+}*/
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofSetColor(255);
     video->draw(0, 0);
-
     //aruco.draw();
 
     if (showMarkers) {
@@ -121,12 +120,12 @@ void ofApp::draw(){
             //ofApp::playAudioWithMarker(i);
         }
     }
-    for (int i=0; i<5; i++) {
+ /*   for (int i=0; i<5; i++) {
         ofDrawLine(ofGetWidth()/5*i, 0, ofGetWidth()/5*i, ofGetHeight());
     }
     for (int i=0; i<2; i++) {
         ofDrawLine(0, ofGetHeight()/2*i, ofGetWidth(), ofGetHeight()/2*i);
-    }
+    }*/
 }
 
 //--------------------------------------------------------------
