@@ -42,6 +42,6 @@ public:
     ofImage board;
     ofImage marker;
     
-    FidBlock myFidBlocks[10];
+    FidBlock myFidBlocks[28];
     
 };
