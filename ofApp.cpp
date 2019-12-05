@@ -105,10 +105,9 @@ void ofApp::draw(){
     video->draw(0, 0);
     
     ofSetColor(255, 255, 255, 125);
-    myStation[0].drawStation();
-    myStation[1].drawStation();
-    myStation[2].drawStation();
-    myStation[3].drawStation();
+    for (int i=0; i<3; i++){
+        myStation[i].drawStation();
+    }
     
     //aruco.draw();
    // ofDrawLine(ofGetWidth()/2 + 140, 0,ofGetWidth()/2 + 140, ofGetHeight());

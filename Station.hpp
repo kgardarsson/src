@@ -9,6 +9,7 @@
 #define Station_hpp
 
 #include "ofMain.h"
+#include "FidBlock.hpp"
  
 class Station{
 public:
@@ -18,8 +19,13 @@ public:
     float topBorder;
     float rightBorder;
     float bottomBorder;
+    vector<FidBlock> fidBlocks;
     
     void drawStation();
+    
+    bool isCorrectFidBlock();
+    
+    void addFidBlock(int i);
     
 };
 
