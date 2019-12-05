@@ -27,23 +27,14 @@ public:
     void gotMessage(ofMessage msg);
     void playAudioWithMarker(int marker);
     
-    ofSoundPlayer audioLoops[10];
-
     ofVideoGrabber grabber;
-    ofVideoGrabber thresholdImage;
-    ofVideoPlayer player;
-
     ofBaseVideoDraws * video;
 
     ofxAruco aruco;
-    bool useVideo;
-    bool showMarkers;
-    bool showBoard;
-    bool showBoardImage;
-    ofImage board;
-    ofImage marker;
     
     FidBlock myFidBlocks[28];
-    Station myStation[4];
-    
+    Station redStation;
+    Station greenStation;
+    Station orangeStation;
+    Station blueStation;
 };
