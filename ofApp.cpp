@@ -37,6 +37,16 @@ void ofApp::setup(){
     aruco.setupXML(cameraIntrinsics, video->getWidth(), video->getHeight());
 
     ofEnableAlphaBlending();
+    //RED station (left)
+    myStation[0] = Station(0,0,ofGetWidth()/2-140,ofGetHeight());
+    //GREEN station (top)
+    myStation[1] = Station(ofGetWidth()/2-140,0,280,ofGetHeight()/2);
+    //ORANGE station (right)
+    myStation[2] = Station(ofGetWidth()/2+140,0,200,ofGetHeight());
+    //BLUE station (bottom)
+    myStation[3] = Station(ofGetWidth()/2-140,ofGetHeight()/2,280,ofGetHeight()/2);
+    
+    
 
     
     //RED Station Blocks
@@ -93,7 +103,17 @@ void ofApp::update(){
 void ofApp::draw(){
     ofSetColor(255);
     video->draw(0, 0);
+    
+    ofSetColor(255, 255, 255, 125);
+    myStation[0].drawStation();
+    myStation[1].drawStation();
+    myStation[2].drawStation();
+    myStation[3].drawStation();
+    
     //aruco.draw();
+   // ofDrawLine(ofGetWidth()/2 + 140, 0,ofGetWidth()/2 + 140, ofGetHeight());
+    //ofDrawLine(ofGetWidth()/2 - 140, 0,ofGetWidth()/2 - 140, ofGetHeight());
+    //ofDrawLine(ofGetWidth()/2 - 140, ofGetHeight()/2, ofGetWidth()/2 + 140, ofGetHeight()/2);
 
     for (int i=0; i<28; i++) {
         myFidBlocks[i].stopAudio();
