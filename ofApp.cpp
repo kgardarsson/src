@@ -38,13 +38,13 @@ void ofApp::setup(){
 
     ofEnableAlphaBlending();
     //RED station (left)
-    myStation[0] = Station(0,0,ofGetWidth()/2-140,ofGetHeight());
+    redStation = Station(0,0,ofGetWidth()/2-140,ofGetHeight());
     //GREEN station (top)
-    myStation[1] = Station(ofGetWidth()/2-140,0,280,ofGetHeight()/2);
+    greenStation = Station(ofGetWidth()/2-140,0,280,ofGetHeight()/2);
     //ORANGE station (right)
-    myStation[2] = Station(ofGetWidth()/2+140,0,200,ofGetHeight());
+    orangeStation = Station(ofGetWidth()/2+140,0,200,ofGetHeight());
     //BLUE station (bottom)
-    myStation[3] = Station(ofGetWidth()/2-140,ofGetHeight()/2,280,ofGetHeight()/2);
+    blueStation = Station(ofGetWidth()/2-140,ofGetHeight()/2,280,ofGetHeight()/2);
     
     
 
@@ -105,13 +105,13 @@ void ofApp::draw(){
     video->draw(0, 0);
     
     ofSetColor(255, 255, 255, 125);
-    myStation[0].drawStation();
-    myStation[1].drawStation();
-    myStation[2].drawStation();
-    myStation[3].drawStation();
+    redStation.drawStation();
+    greenStation.drawStation();
+    orangeStation.drawStation();
+    blueStation.drawStation();
     
     //aruco.draw();
-   // ofDrawLine(ofGetWidth()/2 + 140, 0,ofGetWidth()/2 + 140, ofGetHeight());
+    //ofDrawLine(ofGetWidth()/2 + 140, 0,ofGetWidth()/2 + 140, ofGetHeight());
     //ofDrawLine(ofGetWidth()/2 - 140, 0,ofGetWidth()/2 - 140, ofGetHeight());
     //ofDrawLine(ofGetWidth()/2 - 140, ofGetHeight()/2, ofGetWidth()/2 + 140, ofGetHeight()/2);
 
