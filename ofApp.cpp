@@ -19,6 +19,7 @@ void drawMarker(float size, const ofColor & color){
 void ofApp::setup(){
     ofSetVerticalSync(true);
     string cameraIntrinsics = "intrinsics.yml";
+
     
     //Use For PS3 Camera
     //grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
@@ -26,6 +27,7 @@ void ofApp::setup(){
     //Use For Webcam
     grabber.setDeviceID(1);
     
+
     grabber.initGrabber(ofGetWidth(), ofGetHeight());
     video = &grabber;
     
@@ -35,6 +37,17 @@ void ofApp::setup(){
     aruco.setupXML(cameraIntrinsics, video->getWidth(), video->getHeight());
 
     ofEnableAlphaBlending();
+    //RED station (left)
+    myStation[0] = Station(0,0,ofGetWidth()/2-140,ofGetHeight());
+    //GREEN station (top)
+    myStation[1] = Station(ofGetWidth()/2-140,0,280,ofGetHeight()/2);
+    //ORANGE station (right)
+    myStation[2] = Station(ofGetWidth()/2+140,0,200,ofGetHeight());
+    //BLUE station (bottom)
+    myStation[3] = Station(ofGetWidth()/2-140,ofGetHeight()/2,280,ofGetHeight()/2);
+    
+    
+
     
     //RED Station Blocks
     myFidBlocks[0] = FidBlock("Audio/CowBlock.wav", 0);
@@ -63,6 +76,7 @@ void ofApp::setup(){
     myFidBlocks[17] = FidBlock("Audio/SexyTimeBlock.wav", 17);
     myFidBlocks[18] = FidBlock("Audio/UpBlock.wav", 18);
     myFidBlocks[19] = FidBlock("Audio/FusionBlock.wav", 19);
+
     
     //Combo Blocks
     myFidBlocks[20] = FidBlock();
@@ -84,12 +98,22 @@ void ofApp::update(){
     }
 }
 
+
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofSetColor(255);
     video->draw(0, 0);
-
+    
+    ofSetColor(255, 255, 255, 125);
+    myStation[0].drawStation();
+    myStation[1].drawStation();
+    myStation[2].drawStation();
+    myStation[3].drawStation();
+    
     //aruco.draw();
+   // ofDrawLine(ofGetWidth()/2 + 140, 0,ofGetWidth()/2 + 140, ofGetHeight());
+    //ofDrawLine(ofGetWidth()/2 - 140, 0,ofGetWidth()/2 - 140, ofGetHeight());
+    //ofDrawLine(ofGetWidth()/2 - 140, ofGetHeight()/2, ofGetWidth()/2 + 140, ofGetHeight()/2);
 
     for (int i=0; i<28; i++) {
         myFidBlocks[i].stopAudio();
@@ -101,6 +125,7 @@ void ofApp::draw(){
                 myFidBlocks[j].playAudio();
             }
         }
+
         cout << "id is: " << aruco.getMarkers().at(i).id << endl;
         drawMarker(0.15, ofColor::white);
         aruco.end();

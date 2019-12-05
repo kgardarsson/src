@@ -5,6 +5,7 @@
 #include "ofxAruco.h"
 #include "ofxPS3EyeGrabber.h"
 #include "FidBlock.hpp"
+#include "Station.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -32,5 +33,6 @@ public:
     ofxAruco aruco;
     
     FidBlock myFidBlocks[28];
+    Station myStation[4];
     
 };
