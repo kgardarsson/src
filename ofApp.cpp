@@ -22,10 +22,10 @@ void ofApp::setup(){
 
     
     //Use For PS3 Camera
-    //grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
+    grabber.setGrabber(std::make_shared<ofxPS3EyeGrabber>());
     
     //Use For Webcam
-    grabber.setDeviceID(1);
+    //grabber.setDeviceID(1);
     
 
     grabber.initGrabber(ofGetWidth(), ofGetHeight());
@@ -37,57 +37,43 @@ void ofApp::setup(){
     aruco.setupXML(cameraIntrinsics, video->getWidth(), video->getHeight());
 
     ofEnableAlphaBlending();
+    
     //RED station (left)
-    redStation = Station(0,0,ofGetWidth()/2-140,ofGetHeight());
+    station[0] = Station(0,0,ofGetWidth()/2-140,ofGetHeight());
     //GREEN station (top)
-    greenStation = Station(ofGetWidth()/2-140,0,280,ofGetHeight()/2);
+    station[1] = Station(ofGetWidth()/2-140,0,ofGetWidth()/2+140,ofGetHeight()/2);
     //ORANGE station (right)
-    orangeStation = Station(ofGetWidth()/2+140,0,200,ofGetHeight());
+    station[2] = Station(ofGetWidth()/2+140,0,ofGetWidth(),ofGetHeight());
     //BLUE station (bottom)
-    blueStation = Station(ofGetWidth()/2-140,ofGetHeight()/2,280,ofGetHeight()/2);
-    
-    
+    station[3] = Station(ofGetWidth()/2-140,ofGetHeight()/2,ofGetWidth()/2+140,ofGetHeight());
 
+    //RED (left) Station Blocks
+    station[0].addFidBlock(FidBlock("Audio/newAudio/BoomChaBlock.wav", 0));
+    station[0].addFidBlock(FidBlock("Audio/newAudio/HiBlock.wav", 1));
+    station[0].addFidBlock(FidBlock("Audio/newAudio/CongaBlock.wav", 2));
+    station[0].addFidBlock(FidBlock("Audio/newAudio/TamboBlock.wav", 3));
+    station[0].addFidBlock(FidBlock("Audio/newAudio/RhythmFXBlock.wav", 4));
     
-    //RED Station Blocks
-    myFidBlocks[0] = FidBlock("Audio/CowBlock.wav", 0);
-    myFidBlocks[1] = FidBlock("Audio/RockBlock.wav", 1);
-    myFidBlocks[2] = FidBlock("Audio/ScreamBlock.wav", 2);
-    myFidBlocks[3] = FidBlock("Audio/IndieBlock.wav", 3);
-    myFidBlocks[4] = FidBlock("Audio/StrumBlock.wav", 4);
+    //GREEN (top) Station Blocks
+    station[1].addFidBlock(FidBlock("Audio/newAudio/CalmSynthBlock.wav", 5));
+    station[1].addFidBlock(FidBlock("Audio/newAudio/PianoBlock.wav", 6));
+    station[1].addFidBlock(FidBlock("Audio/newAudio/AcoGuitarBlock.wav", 7));
+    station[1].addFidBlock(FidBlock("Audio/newAudio/OrganBlock.wav", 8));
+    station[1].addFidBlock(FidBlock("Audio/newAudio/FunkyBlock.wav", 9));
     
-    //ORANGE Station Blocks
-    myFidBlocks[5] = FidBlock("Audio/DjubBlock.wav", 5);
-    myFidBlocks[6] = FidBlock("Audio/SynthBlock.wav", 6);
-    myFidBlocks[7] = FidBlock("Audio/VoBlock.wav", 7);
-    myFidBlocks[8] = FidBlock("Audio/VitaBlock.wav", 8);
-    myFidBlocks[9] = FidBlock("Audio/DiscoBlock.wav", 9);
+    //ORANGE (right) Station Blocks
+    station[2].addFidBlock(FidBlock("Audio/newAudio/DanceFloorPatternBlock.wav", 10));
+    station[2].addFidBlock(FidBlock("Audio/newAudio/WowBlock.wav", 11));
+    station[2].addFidBlock(FidBlock("Audio/newAudio/RockSteadyBlock.wav", 12));
+    station[2].addFidBlock(FidBlock("Audio/newAudio/BassickBlock.wav", 13));
+    station[2].addFidBlock(FidBlock("Audio/newAudio/BlazeRunnerBlock.wav", 14));
     
-    //GREEN Station Blocks
-    myFidBlocks[10] = FidBlock("Audio/ChoBlock.wav", 10);
-    myFidBlocks[11] = FidBlock("Audio/BachBlock.wav", 11);
-    myFidBlocks[12] = FidBlock("Audio/StringBlock.wav", 12);
-    myFidBlocks[13] = FidBlock("Audio/WindBlock.wav", 13);
-    myFidBlocks[14] = FidBlock("Audio/ReggaeBlock.wav", 14);
-    
-    //BLUE Station Blocks
-    myFidBlocks[15] = FidBlock("Audio/BlueBlock.wav", 15);
-    myFidBlocks[16] = FidBlock("Audio/JungleBlock.wav", 16);
-    myFidBlocks[17] = FidBlock("Audio/SexyTimeBlock.wav", 17);
-    myFidBlocks[18] = FidBlock("Audio/UpBlock.wav", 18);
-    myFidBlocks[19] = FidBlock("Audio/FusionBlock.wav", 19);
-
-    
-    //Combo Blocks
-    myFidBlocks[20] = FidBlock();
-    myFidBlocks[21] = FidBlock();
-    myFidBlocks[22] = FidBlock();
-    myFidBlocks[23] = FidBlock();
-    myFidBlocks[24] = FidBlock();
-    myFidBlocks[25] = FidBlock();
-    myFidBlocks[26] = FidBlock();
-    myFidBlocks[27] = FidBlock();
-
+    //BLUE (bottom) Station Blocks
+    station[3].addFidBlock(FidBlock("Audio/newAudio/VitaBlock.wav", 15));
+    station[3].addFidBlock(FidBlock("Audio/newAudio/SaxoBlock.wav", 16));
+    station[3].addFidBlock(FidBlock("Audio/newAudio/ForeverBlock.wav", 17));
+    station[3].addFidBlock(FidBlock("Audio/newAudio/MidnightBlock.wav", 18));
+    station[3].addFidBlock(FidBlock("Audio/newAudio/SexyTimeBlock.wav", 19));
 }
 
 //--------------------------------------------------------------
@@ -105,28 +91,30 @@ void ofApp::draw(){
     video->draw(0, 0);
     
     ofSetColor(255, 255, 255, 125);
-    redStation.drawStation();
-    greenStation.drawStation();
-    orangeStation.drawStation();
-    blueStation.drawStation();
-    
-    //aruco.draw();
-    //ofDrawLine(ofGetWidth()/2 + 140, 0,ofGetWidth()/2 + 140, ofGetHeight());
-    //ofDrawLine(ofGetWidth()/2 - 140, 0,ofGetWidth()/2 - 140, ofGetHeight());
-    //ofDrawLine(ofGetWidth()/2 - 140, ofGetHeight()/2, ofGetWidth()/2 + 140, ofGetHeight()/2);
-
-    for (int i=0; i<28; i++) {
-        myFidBlocks[i].stopAudio();
+    for (int i=0; i<4; i++) {
+        station[i].drawStation();
     }
+        
+    //Stop the audio when marker disappears
+    for (int j=0; j<4; j++) {
+        station[j].stopAudio();
+    }
+    
+    //plays audio for every marker detected
     for (int i = 0; i<aruco.getNumMarkers(); i++) {
         aruco.begin(i);
-        for (int j=0; j<28; j++) {
-            if (aruco.getMarkers().at(i).id == myFidBlocks[j].id) {
-                myFidBlocks[j].playAudio();
+        //for every staition, check if markers' center is within its area
+        for (int j=0; j<4; j++) {
+            float fidPosX = aruco.getMarkers().at(i).getCenter().x;
+            float fidPosY = aruco.getMarkers().at(i).getCenter().y;
+            if (fidPosX > station[j].leftBorder &&
+                fidPosX < station[j].rightBorder &&
+                fidPosY > station[j].topBorder &&
+                fidPosY < station[j].bottomBorder) {
+                station[j].playAudio(aruco.getMarkers().at(i).id);
             }
         }
-
-        cout << "id is: " << aruco.getMarkers().at(i).id << endl;
+        aruco.getMarkers().at(i).getCenter();
         drawMarker(0.15, ofColor::white);
         aruco.end();
     }
