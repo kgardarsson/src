@@ -9,6 +9,8 @@
 #define Station_hpp
 
 #include "ofMain.h"
+#include "ofxAruco.h"
+#include "FidBlock.hpp"
  
 class Station{
 public:
@@ -20,6 +22,15 @@ public:
     float bottomBorder;
     
     void drawStation();
+    void addFidBlock(FidBlock fidBlock);
+    void playAudio(int id);
+    void stopAudio();
+    string name;
+    void setName(string name);
+    string getName();
+    
+    //ofxAruco aruco;
+    vector<FidBlock> fidBlocks;
     
 };
 

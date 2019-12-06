@@ -32,9 +32,5 @@ public:
 
     ofxAruco aruco;
     
-    FidBlock myFidBlocks[28];
-    Station redStation;
-    Station greenStation;
-    Station orangeStation;
-    Station blueStation;
+    Station station[4];
 };
