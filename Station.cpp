@@ -29,6 +29,7 @@ void Station::playAudio(int id) {
     for (int i=0; i<fidBlocks.size(); i++) {
         if (id == fidBlocks[i].id) {
             fidBlocks[i].playAudio();
+            break;
         }
     }
 }
