@@ -89,22 +89,21 @@ void ofApp::update(){
 void ofApp::draw(){
     ofSetColor(255);
     video->draw(0, 0);
-    
     ofSetColor(255, 255, 255, 125);
-    for (int i=0; i<4; i++) {
+    
+    int numberOfStations = 4;
+    for (int i=0; i<numberOfStations; i++) {
         station[i].drawStation();
     }
-        
-    //Stop the audio when marker disappears
-    for (int j=0; j<4; j++) {
-        station[j].stopAudio();
-    }
     
+    //Stop the audio when marker disappears
+    for (int i=0; i<numberOfStations; i++) {
+        station[i].stopAudio();
+    }
     //plays audio for every marker detected
     for (int i = 0; i<aruco.getNumMarkers(); i++) {
-        aruco.begin(i);
         //for every staition, check if markers' center is within its area
-        for (int j=0; j<4; j++) {
+        for (int j=0; j<numberOfStations; j++) {
             float fidPosX = aruco.getMarkers().at(i).getCenter().x;
             float fidPosY = aruco.getMarkers().at(i).getCenter().y;
             if (fidPosX > station[j].leftBorder &&
@@ -114,9 +113,6 @@ void ofApp::draw(){
                 station[j].playAudio(aruco.getMarkers().at(i).id);
             }
         }
-        aruco.getMarkers().at(i).getCenter();
-        drawMarker(0.15, ofColor::white);
-        aruco.end();
     }
 }
 
