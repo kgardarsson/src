@@ -7,7 +7,6 @@
 
 #include "Station.hpp"
 Station::Station(){
-    
 };
 
 
@@ -47,12 +46,4 @@ void Station::setName(string name) {
 
 string Station::getName() {
     return name;
-}
-
-bool isCorrectFidBlock(){
-
-}
-
-void addFidBlock(FidBlock fids) {
-    fidBlocks.push_back(fids);
 }

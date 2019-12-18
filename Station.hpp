@@ -20,6 +20,7 @@ public:
     float topBorder;
     float rightBorder;
     float bottomBorder;
+    
     vector<FidBlock> fidBlocks;
     
     void drawStation();
@@ -28,14 +29,8 @@ public:
     void stopAudio();
     string name;
     void setName(string name);
+    
     string getName();
-    
-    //ofxAruco aruco;
-    vector<FidBlock> fidBlocks;
-    
-    bool isCorrectFidBlock();
-    
-    void addFidBlock(int i);
     
 };
 

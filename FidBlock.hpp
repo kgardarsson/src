@@ -15,16 +15,12 @@ class FidBlock {
 public:
     FidBlock();
     FidBlock(string audioFile, int id);
-    
-    void setup();
-    void draw();
+
     
     void playAudio();
     void stopAudio();
     
     int id;
-    
-    aruco::Marker marker;
     
     ofSoundPlayer audioLoop;
 };
