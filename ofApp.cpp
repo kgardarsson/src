@@ -92,9 +92,12 @@ void ofApp::draw(){
     ofSetColor(255, 255, 255, 125);
     
     int numberOfStations = 4;
-    for (int i=0; i<numberOfStations; i++) {
+    
+    /*
+     for (int i=0; i<numberOfStations; i++) {
         station[i].drawStation();
     }
+    */
     
     //Stop the audio when marker disappears
     for (int i=0; i<numberOfStations; i++) {
